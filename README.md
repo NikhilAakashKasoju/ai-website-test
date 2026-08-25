@@ -4,6 +4,42 @@ Next.js 14 (App Router) + TypeScript + Tailwind + Framer Motion, built to match
 the visual design language of edufulness.com/dsa (dark theme, gradient/glow
 accents, expandable curriculum cards, animated stat counters).
 
+## Deploying to Render
+
+This repo includes `render.yaml`, so Render can pick up the config automatically.
+
+**Option A — Blueprint (uses `render.yaml`):**
+1. Push this project to a GitHub repo.
+2. In Render: **New → Blueprint**, pick the repo. Render reads `render.yaml`
+   and pre-fills the build/start commands.
+3. Under the service's **Environment** tab, set `NEXT_PUBLIC_CONTACT_ENDPOINT`
+   to your PHP backend URL once it's live (it's marked `sync: false` in the
+   blueprint, so Render won't set it for you — you add it manually so the
+   value doesn't sit in your repo).
+4. Deploy. First build takes a few minutes; subsequent pushes to `main`
+   auto-deploy.
+
+**Option B — Manual Web Service (skip render.yaml):**
+1. **New → Web Service**, connect the repo.
+2. Runtime: **Node**. Build command: `npm install && npm run build`.
+   Start command: `npm run start`.
+3. Add the `NEXT_PUBLIC_CONTACT_ENDPOINT` env var if you have a backend URL.
+4. Deploy.
+
+**Notes:**
+- `npm run start` runs `next start -p ${PORT:-3000}` — Render assigns a
+  `PORT` env var at runtime and this binds to it automatically. If you ever
+  see a deploy succeed but the service immediately fail health checks, this
+  is usually the first thing to check.
+- Free-tier Render web services spin down after inactivity and take ~30–60s
+  to wake back up on the next request — expected, not a bug.
+- `render.yaml` defaults the region to `singapore` (closest to India) and
+  plan to `free`. Both are one-line edits in `render.yaml` if you want
+  something else.
+- `.env.example` documents the one env var this project reads. Copy it to
+  `.env.local` for local dev if you want to test the contact form against a
+  real endpoint before deploying.
+
 ## Setup
 
 ```bash

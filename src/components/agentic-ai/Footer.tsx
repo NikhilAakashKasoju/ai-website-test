@@ -18,7 +18,6 @@ export default function Footer() {
               <li><a href="#curriculum" className="hover:text-ink">Curriculum</a></li>
               <li><a href="#projects" className="hover:text-ink">Projects</a></li>
               <li><a href="#skills" className="hover:text-ink">Skills</a></li>
-              <li><a href="#faq" className="hover:text-ink">FAQ</a></li>
             </ul>
           </div>
 

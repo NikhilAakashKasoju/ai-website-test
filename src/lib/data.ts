@@ -231,19 +231,6 @@ export const skills: string[] = [
   "End-to-End Agentic System Design & Deployment",
 ];
 
-export interface FaqItem {
-  question: string;
-  answer: string;
-}
-
-export const faqs: FaqItem[] = [
-  {
-    question: "Are there any prerequisites?",
-    answer:
-      "None. This bootcamp is beginner-friendly and works for all skill levels — from learners completely new to coding to those already comfortable with machine learning who want to specialize in agentic systems. If you're starting from zero, we recommend spending the first couple of weeks alongside the course brushing up on Python fundamentals.",
-  },
-];
-
 export const programStats = [
   { value: 8, suffix: "", label: "Weeks" },
   { value: 22, suffix: "+", label: "Live sessions" },

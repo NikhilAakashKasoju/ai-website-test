@@ -1215,9 +1215,6 @@ video {
 .border-t {
   border-top-width: 1px;
 }
-.border-dashed {
-  border-style: dashed;
-}
 .border-border-strong {
   border-color: rgba(255,255,255,0.16);
 }

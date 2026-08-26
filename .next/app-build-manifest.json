@@ -1,34 +1,15 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-a0e6191efa3f86e6.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-7fe38a6ce0fe6894.js",
-      "static/chunks/app/_not-found/page-221ef7203edcd7a2.js"
+    "/agentic-ai/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/agentic-ai/page.js"
     ],
     "/layout": [
-      "static/chunks/webpack-a0e6191efa3f86e6.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-7fe38a6ce0fe6894.js",
-      "static/css/92a36408ab0b7507.css",
-      "static/chunks/app/layout-d3154c683cd8823e.js"
-    ],
-    "/agentic-ai/page": [
-      "static/chunks/webpack-a0e6191efa3f86e6.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-7fe38a6ce0fe6894.js",
-      "static/chunks/64-5f14b9219d3c7917.js",
-      "static/chunks/app/agentic-ai/page-455ca4635b654ec1.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-a0e6191efa3f86e6.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-7fe38a6ce0fe6894.js",
-      "static/chunks/app/page-0a8b9a7b052e6eac.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ]
   }
 }

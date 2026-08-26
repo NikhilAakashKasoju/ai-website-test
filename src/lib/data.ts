@@ -254,6 +254,18 @@ export interface Instructor {
 
 export const instructors: Instructor[] = [
   {
+    name: "Satyajit Pattnaik",
+    initials: "SP",
+    role: "Lead AI and Data Consultant at PALO IT",
+    bio: "Satyajit is a Data and AI expert based in Hong Kong with 14+ years of experience across data analytics, machine learning, and generative AI, working with organizations spanning telecommunications, insurance, and e-commerce. Alongside his consulting work at PALO IT, he has taught data science, AI, and analytics to a large global audience through live cohorts and online courses.",
+    photo: "/instructors/satyajit_pattnaik.png",
+    specialties: ["Machine Learning", "Generative AI", "Data Analytics"],
+    stats: [
+      { value: "14+", label: "Years experience" },
+      { value: "200k+", label: "Learners taught" },
+    ],
+  },
+  {
     name: "Atchyut Kumar",
     initials: "AK",
     role: "Data Engineering & GATE CS/IT Faculty",
@@ -264,18 +276,6 @@ export const instructors: Instructor[] = [
       { value: "15+", label: "Years experience" },
       { value: "110k+", label: "Students mentored" },
       { value: "99.97", label: "GATE percentile" },
-    ],
-  },
-  {
-    name: "Satyajit Pattnaik",
-    initials: "SP",
-    role: "Lead AI and Data Consultant at PALO IT",
-    bio: "Satyajit is a Data and AI expert based in Hong Kong with 14+ years of experience across data analytics, machine learning, and generative AI, working with organizations spanning telecommunications, insurance, and e-commerce. Alongside his consulting work at PALO IT, he has taught data science, AI, and analytics to a large global audience through live cohorts and online courses.",
-    photo: "/instructors/satyajit_pattnaik.png",
-    specialties: ["Machine Learning", "Generative AI", "Data Analytics"],
-    stats: [
-      { value: "14+", label: "Years experience" },
-      { value: "200k+", label: "Learners taught" },
     ],
   },
 ];

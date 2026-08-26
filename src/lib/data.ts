@@ -158,7 +158,7 @@ export const weeks: Week[] = [
     number: 8,
     title: "Production-Ready Agent Systems, Interview Preparation",
     blurb:
-      "Taking an agent from working demo to production system, then turning the whole bootcamp into a story you can tell in an interview.",
+      "Taking an agent from working demo to production system, then turning everything you've built into a story you can tell in an interview.",
     topics: [
       {
         day: "Session 1",
@@ -237,3 +237,54 @@ export const programStats = [
   { value: 3, suffix: "", label: "Core projects" },
   { value: 10, suffix: "", label: "Skills covered" },
 ];
+export interface Instructor {
+  name: string;
+  initials: string;
+  role: string;
+  bio: string;
+  /**
+   * Path to a headshot inside /public, e.g. "/instructors/atchyut.jpg".
+   * Leave empty and the card falls back to the gradient initials circle,
+   * so nothing breaks before the photos are uploaded.
+   */
+  photo: string;
+  specialties: string[];
+  stats: { value: string; label: string }[];
+}
+
+export const instructors: Instructor[] = [
+  {
+    name: "Atchyut Kumar",
+    initials: "AK",
+    role: "Data Engineering & GATE CS/IT Faculty",
+    bio: "Atchyut holds an M.Tech from NIT Calicut and placed in the 99.97 percentile of GATE CS/IT (AIR 440). Across 15+ years in teaching, research and industry he has mentored students into roles at Amazon, Google, Oracle, Samsung and Adobe — and brings 9+ years of hands-on data engineering to every module.",
+    photo: "/instructors/Atchyut instructor.png",
+    specialties: ["Data Engineering", "GATE CS/IT", "Algorithms"],
+    stats: [
+      { value: "15+", label: "Years experience" },
+      { value: "110k+", label: "Students mentored" },
+      { value: "99.97", label: "GATE percentile" },
+    ],
+  },
+  {
+    name: "Satyajit Pattnaik",
+    initials: "SP",
+    role: "Lead AI and Data Consultant at PALO IT",
+    bio: "Satyajit is a Data and AI expert based in Hong Kong with 14+ years of experience across data analytics, machine learning, and generative AI, working with organizations spanning telecommunications, insurance, and e-commerce. Alongside his consulting work at PALO IT, he has taught data science, AI, and analytics to a large global audience through live cohorts and online courses.",
+    photo: "/instructors/satyajit_pattnaik.png",
+    specialties: ["Machine Learning", "Generative AI", "Data Analytics"],
+    stats: [
+      { value: "14+", label: "Years experience" },
+      { value: "200k+", label: "Learners taught" },
+    ],
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// External enrollment / checkout page. Used by the navbar CTA, the hero CTA
+// and the Register section, so all three always point to the same place.
+// Override without touching code by setting NEXT_PUBLIC_REGISTER_URL in Render.
+// ─────────────────────────────────────────────────────────────────────────────
+export const REGISTER_URL =
+  process.env.NEXT_PUBLIC_REGISTER_URL ||
+  "https://learn.edufulness.com/web/checkout/6a8d11b0ad92ab36e604d32e";

@@ -8,7 +8,7 @@ export default function Footer() {
               Building Agentic AI Applications
             </p>
             <p className="mt-2 text-sm text-ink-muted">
-              An 8-week live bootcamp on generative AI and agentic systems.
+              An 8-week live cohort on generative AI and agentic systems.
             </p>
           </div>
 
@@ -22,9 +22,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-widest text-ink-muted">Contact</p>
+            <p className="text-xs uppercase tracking-widest text-ink-muted">Join</p>
             <ul className="mt-3 space-y-2 text-sm text-ink-secondary">
-              <li><a href="#contact" className="hover:text-ink">Get in touch</a></li>
+              <li><a href="#register" className="hover:text-ink">Reserve your seat</a></li>
             </ul>
           </div>
         </div>

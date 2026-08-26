@@ -2,12 +2,19 @@
 
 import { motion } from "framer-motion";
 import AgentWorkflowDiagram from "./AgentWorkflowDiagram";
+import { REGISTER_URL } from "@/lib/data";
 
 export default function Hero() {
   return (
     <section id="main" className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-radial-glow" aria-hidden="true" />
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-16 md:grid-cols-[1.1fr,0.9fr] md:pb-28 md:pt-24">
+      {/* Decorative glow. It is absolutely positioned, so without
+          pointer-events-none it paints over the static content below and
+          swallows every click on the CTAs. */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-radial-glow"
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-16 md:grid-cols-[1.04fr,0.96fr] md:pb-28 md:pt-24">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-cyan">
             / Live cohort · Beginner-friendly · Recordings included
@@ -32,7 +39,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="mt-5 max-w-xl text-balance text-base leading-relaxed text-ink-secondary sm:text-lg"
           >
-            A live, virtual bootcamp that takes you from Python and AI basics to
+            An 8-week cohort that takes you from Python and AI basics to
             LLMs, RAG, LangChain, CrewAI, LangGraph, orchestration, and no-code
             agent workflows — guided step by step. Ship 6+ portfolio projects
             and a capstone along the way.
@@ -45,7 +52,9 @@ export default function Hero() {
             className="mt-8 flex flex-wrap items-center gap-4"
           >
             <a
-              href="#contact"
+              href={REGISTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full bg-agent-gradient px-6 py-3 text-sm font-semibold text-void shadow-glow transition-transform hover:scale-[1.03]"
             >
               Reserve your seat
@@ -59,7 +68,7 @@ export default function Hero() {
           </motion.div>
 
           <p className="mt-6 text-sm text-ink-muted">
-            Interactive live sessions · Recordings available · Certificate on completion
+            Interactive live sessions · Recordings available
           </p>
         </div>
 

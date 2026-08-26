@@ -1,15 +1,33 @@
 services:
   - type: web
-    name: agentic-ai-bootcamp
+    name: agentic-ai-cohort
     runtime: node
     plan: free
     region: singapore
     branch: main
+
     buildCommand: npm install && npm run build
     startCommand: npm run start
+
+    # Render pings this to decide the instance is live. "/" issues a 307 to
+    # /agentic-ai, so point the check at the real page.
+    healthCheckPath: /agentic-ai
+
+    autoDeploy: true
+
     envVars:
       - key: NODE_VERSION
         value: 20.16.0
-      - key: NEXT_PUBLIC_CONTACT_ENDPOINT
+
+      # Optional. The checkout link is hardcoded in src/lib/data.ts as a
+      # fallback, so the site works without this. Set it here to change the
+      # link later without editing code.
+      # NEXT_PUBLIC_* values are baked in at BUILD time, so changing this
+      # requires a redeploy, not just a restart.
+      - key: NEXT_PUBLIC_REGISTER_URL
         sync: false
-    autoDeploy: true
+
+      # Optional. Used for absolute URLs in metadata (social previews).
+      # Set it to your final domain once you have one.
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false

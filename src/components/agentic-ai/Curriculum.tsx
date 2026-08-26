@@ -2,17 +2,26 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
 import { weeks } from "@/lib/data";
 
-function WeekCard({ week, defaultOpen }: { week: (typeof weeks)[number]; defaultOpen: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
+function WeekCard({
+  week,
+  open,
+  onToggle,
+}: {
+  week: (typeof weeks)[number];
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const panelId = `week-panel-${week.number}`;
 
   return (
     <div className="grain-surface overflow-hidden rounded-2xl border border-border-subtle bg-surface shadow-card">
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={onToggle}
         aria-expanded={open}
+        aria-controls={panelId}
         className="flex w-full items-center gap-5 px-6 py-5 text-left transition-colors hover:bg-surface-hover"
       >
         <span className="font-mono text-sm text-cyan">
@@ -32,6 +41,7 @@ function WeekCard({ week, defaultOpen }: { week: (typeof weeks)[number]; default
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
+            id={panelId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -62,29 +72,57 @@ function WeekCard({ week, defaultOpen }: { week: (typeof weeks)[number]; default
 }
 
 export default function Curriculum() {
+  // Week 1 opens by default, matching the original behaviour.
+  const [openWeeks, setOpenWeeks] = useState<number[]>([weeks[0].number]);
+
+  const allOpen = openWeeks.length === weeks.length;
+
+  function toggleWeek(number: number) {
+    setOpenWeeks((prev) =>
+      prev.includes(number) ? prev.filter((n) => n !== number) : [...prev, number]
+    );
+  }
+
+  function toggleAll() {
+    setOpenWeeks(allOpen ? [] : weeks.map((w) => w.number));
+  }
+
   return (
     <section id="curriculum" className="mx-auto max-w-6xl px-6 py-24">
       <p className="font-mono text-xs uppercase tracking-widest text-cyan">/ The path</p>
       <h2 className="mt-3 max-w-2xl text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         From AI fundamentals to production agents
       </h2>
-      <p className="mt-4 max-w-2xl text-ink-secondary">
-        Eight weeks, each building on the last. Open a week to see exactly what
-        it covers.
-      </p>
 
-      <div className="mt-10 space-y-4">
-        {weeks.map((week, i) => (
-          <WeekCard key={week.number} week={week} defaultOpen={i === 0} />
-        ))}
+      <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <p className="max-w-2xl text-ink-secondary">
+          Eight weeks, each building on the last. Open a week to see exactly what
+          it covers.
+        </p>
+
+        <button
+          onClick={toggleAll}
+          aria-label={allOpen ? "Collapse all weeks" : "Expand all weeks"}
+          className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-surface sm:self-auto"
+        >
+          {allOpen ? (
+            <ChevronsDownUp className="h-4 w-4 text-cyan transition-transform duration-300 group-hover:-translate-y-px" />
+          ) : (
+            <ChevronsUpDown className="h-4 w-4 text-cyan transition-transform duration-300 group-hover:translate-y-px" />
+          )}
+          {allOpen ? "Collapse all" : "Expand all"}
+        </button>
       </div>
 
-      <div className="mt-10 flex items-center gap-3 rounded-2xl border border-border-subtle bg-agent-gradient-soft px-6 py-5">
-        <span className="h-2 w-2 shrink-0 rounded-full bg-cyan" />
-        <p className="text-sm text-ink-secondary">
-          Complete all sessions to earn a bootcamp certificate you can share on
-          your profile.
-        </p>
+      <div className="mt-10 space-y-4">
+        {weeks.map((week) => (
+          <WeekCard
+            key={week.number}
+            week={week}
+            open={openWeeks.includes(week.number)}
+            onToggle={() => toggleWeek(week.number)}
+          />
+        ))}
       </div>
     </section>
   );

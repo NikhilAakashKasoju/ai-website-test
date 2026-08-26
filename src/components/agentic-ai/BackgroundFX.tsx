@@ -19,14 +19,23 @@ function seededRandom(seed: number) {
 
 const rand = seededRandom(42);
 
-const stars = Array.from({ length: 45 }, (_, i) => ({
-  id: i,
-  left: `${(rand() * 100).toFixed(2)}%`,
-  top: `${(rand() * 100).toFixed(2)}%`,
-  size: rand() > 0.85 ? 2 : 1,
-  delay: `${(rand() * 4).toFixed(2)}s`,
-  duration: `${(3 + rand() * 3).toFixed(2)}s`,
-}));
+const stars = Array.from({ length: 45 }, (_, i) => {
+  const left = `${(rand() * 100).toFixed(2)}%`;
+  const top = `${(rand() * 100).toFixed(2)}%`;
+  // Three size tiers so the field reads as depth rather than a uniform grid.
+  const roll = rand();
+  const size = roll > 0.85 ? 5 : roll > 0.5 ? 3.5 : 2.5;
+  return {
+    id: i,
+    left,
+    top,
+    size,
+    // Larger stars carry a soft halo; the small ones stay crisp.
+    glow: size >= 3.5 ? `0 0 ${size * 2.5}px rgba(255,255,255,0.55)` : "none",
+    delay: `${(rand() * 4).toFixed(2)}s`,
+    duration: `${(3 + rand() * 3).toFixed(2)}s`,
+  };
+});
 
 export default function BackgroundFX() {
   return (
@@ -60,6 +69,7 @@ export default function BackgroundFX() {
             top: star.top,
             width: star.size,
             height: star.size,
+            boxShadow: star.glow,
             animationDelay: star.delay,
             animationDuration: star.duration,
           }}

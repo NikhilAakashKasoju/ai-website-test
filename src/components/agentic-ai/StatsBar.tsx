@@ -19,7 +19,7 @@ function Stat({ value, suffix, label }: { value: number; suffix: string; label: 
 export default function StatsBar() {
   return (
     <section className="border-y border-border-subtle bg-surface/40">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 sm:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 py-8 sm:gap-8 sm:py-10 sm:grid-cols-4">
         {programStats.map((stat) => (
           <Stat key={stat.label} {...stat} />
         ))}

@@ -14,7 +14,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 bg-radial-glow"
         aria-hidden="true"
       />
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-16 md:grid-cols-[1.04fr,0.96fr] md:pb-28 md:pt-24">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-6 pb-14 pt-10 sm:gap-12 sm:pb-20 sm:pt-14 md:grid-cols-[1.04fr,0.96fr] md:pb-28 md:pt-20">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-cyan">
             / Live cohort · Beginner-friendly · Recordings included
@@ -39,7 +39,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="mt-5 max-w-xl text-balance text-base leading-relaxed text-ink-secondary sm:text-lg"
           >
-            An 8-week cohort that takes you from Python and AI basics to
+            A 12-week cohort that takes you from Python and AI basics to
             LLMs, RAG, LangChain, CrewAI, LangGraph, orchestration, and no-code
             agent workflows — guided step by step. Ship 6+ portfolio projects
             and a capstone along the way.

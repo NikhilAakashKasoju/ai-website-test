@@ -268,10 +268,10 @@ export const instructors: Instructor[] = [
   {
     name: "Atchyut Kumar",
     initials: "AK",
-    role: "Data Lead & GATE CS/IT Faculty & Udemy Course Content Creator",
+    role: "Data Engineering & GATE CS/IT Faculty",
     bio: "Atchyut holds an M.Tech from NIT Calicut and placed in the 99.97 percentile of GATE CS/IT (AIR 440). Across 15+ years in teaching, research and industry he has mentored students into roles at Amazon, Google, Oracle, Samsung and Adobe — and brings 9+ years of hands-on data engineering to every module.",
     photo: "/instructors/Atchyut instructor.png",
-    specialties: ["Data Lead", "GATE CS/IT", "Algorithms"],
+    specialties: ["Data Engineering", "GATE CS/IT", "Algorithms"],
     stats: [
       { value: "15+", label: "Years experience" },
       { value: "110k+", label: "Students mentored" },
@@ -288,3 +288,26 @@ export const instructors: Instructor[] = [
 export const REGISTER_URL =
   process.env.NEXT_PUBLIC_REGISTER_URL ||
   "https://learn.edufulness.com/web/checkout/6a8d11b0ad92ab36e604d32e";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Enrolment details. Everything the pricing section shows lives here, so batch
+// dates and prices are changed in one place.
+// ─────────────────────────────────────────────────────────────────────────────
+export const pricing = {
+  originalPrice: "₹20,000",
+  currentPrice: "₹10,000",
+  discountNote: "50% off",
+  schedule: [
+    { label: "Batch starts", value: "19 September" },
+    { label: "Duration", value: "12 weeks" },
+    { label: "Live sessions", value: "Saturday & Sunday" },
+    { label: "Session time", value: "8:00 – 10:00 PM IST" },
+    { label: "Doubt clearing", value: "Wednesday, 8:00 – 9:00 PM IST" },
+  ],
+  included: [
+    "All live sessions, plus recordings",
+    "3 core projects and a capstone",
+    "Weekly doubt-clearing calls",
+    "Resume and interview preparation",
+  ],
+};

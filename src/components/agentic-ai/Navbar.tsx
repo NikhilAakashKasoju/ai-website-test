@@ -8,6 +8,7 @@ import { REGISTER_URL } from "@/lib/data";
 
 const links = [
   { href: "#curriculum", label: "Curriculum" },
+  { href: "#pricing", label: "Pricing" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
 ];

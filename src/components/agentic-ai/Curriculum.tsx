@@ -88,7 +88,7 @@ export default function Curriculum() {
   }
 
   return (
-    <section id="curriculum" className="mx-auto max-w-6xl px-6 py-24">
+    <section id="curriculum" className="mx-auto max-w-6xl px-6 py-14 sm:py-20 lg:py-24">
       <p className="font-mono text-xs uppercase tracking-widest text-cyan">/ The path</p>
       <h2 className="mt-3 max-w-2xl text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         From AI fundamentals to production agents
@@ -96,8 +96,7 @@ export default function Curriculum() {
 
       <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <p className="max-w-2xl text-ink-secondary">
-          Eight weeks, each building on the last. Open a week to see exactly what
-          it covers.
+          Each week builds on the last. Open a week to see exactly what it covers.
         </p>
 
         <button
@@ -114,7 +113,7 @@ export default function Curriculum() {
         </button>
       </div>
 
-      <div className="mt-10 space-y-4">
+      <div className="mt-8 space-y-4 sm:mt-10">
         {weeks.map((week) => (
           <WeekCard
             key={week.number}

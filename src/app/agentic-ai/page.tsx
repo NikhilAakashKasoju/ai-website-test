@@ -2,6 +2,7 @@ import Navbar from "@/components/agentic-ai/Navbar";
 import Hero from "@/components/agentic-ai/Hero";
 import StatsBar from "@/components/agentic-ai/StatsBar";
 import Curriculum from "@/components/agentic-ai/Curriculum";
+import Pricing from "@/components/agentic-ai/Pricing";
 import Projects from "@/components/agentic-ai/Projects";
 import Skills from "@/components/agentic-ai/Skills";
 import Instructors from "@/components/agentic-ai/Instructors";
@@ -17,6 +18,7 @@ export default function AgenticAIPage() {
       <Hero />
       <StatsBar />
       <Curriculum />
+      <Pricing />
       <Projects />
       <Skills />
       <Instructors />

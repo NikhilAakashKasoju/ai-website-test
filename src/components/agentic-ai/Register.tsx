@@ -15,13 +15,13 @@ export default function Register() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mx-auto max-w-6xl px-6 py-14 sm:py-20 lg:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="grain-surface relative overflow-hidden rounded-3xl border border-border-subtle bg-agent-gradient-soft px-6 py-14 text-center sm:px-14"
+          className="grain-surface relative overflow-hidden rounded-3xl border border-border-subtle bg-agent-gradient-soft px-6 py-10 text-center sm:py-14 sm:px-14"
         >
           {/* soft dot texture, fading out toward the bottom */}
           <div
@@ -44,7 +44,7 @@ export default function Register() {
             </h2>
 
             <p className="mx-auto mt-4 max-w-xl text-balance text-ink-secondary">
-              Eight weeks of live sessions, three core projects, and a capstone —
+              Twelve weeks of live sessions, three core projects, and a capstone —
               built alongside a small group, guided step by step.
             </p>
 

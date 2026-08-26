@@ -25,7 +25,7 @@ const mono = JetBrains_Mono({
 
 const TITLE = "Building Agentic AI Applications — Live Cohort";
 const DESCRIPTION =
-  "An 8-week live cohort taking you from Python and AI fundamentals to production-ready agentic systems with LangChain, LangGraph, CrewAI, and n8n.";
+  "A 12-week live cohort taking you from Python and AI fundamentals to production-ready agentic systems with LangChain, LangGraph, CrewAI, and n8n.";
 
 // Set NEXT_PUBLIC_SITE_URL in Render once you have a final domain. Without a
 // metadataBase, Next cannot build absolute URLs for social previews and logs

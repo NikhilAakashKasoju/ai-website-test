@@ -6,13 +6,13 @@ import { skills } from "@/lib/data";
 export default function Skills() {
   return (
     <section id="skills" className="border-y border-border-subtle bg-surface/30">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mx-auto max-w-6xl px-6 py-14 sm:py-20 lg:py-24">
         <p className="font-mono text-xs uppercase tracking-widest text-cyan">/ What you walk away with</p>
         <h2 className="mt-3 max-w-2xl text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
           Ten skills, stacked on top of each other
         </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:grid-cols-2">
           {skills.map((skill, i) => (
             <motion.div
               key={skill}

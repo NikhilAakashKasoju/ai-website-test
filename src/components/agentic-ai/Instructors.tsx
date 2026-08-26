@@ -79,7 +79,7 @@ function InstructorCard({ instructor, index }: { instructor: Instructor; index: 
 
 export default function Instructors() {
   return (
-    <section id="instructors" className="mx-auto max-w-6xl px-6 py-24">
+    <section id="instructors" className="mx-auto max-w-6xl px-6 py-14 sm:py-20 lg:py-24">
       <p className="font-mono text-xs uppercase tracking-widest text-cyan">
         / Your instructors
       </p>
@@ -91,7 +91,7 @@ export default function Instructors() {
         taught these fundamentals to hundreds of thousands of students.
       </p>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
+      <div className="mt-8 grid gap-4 sm:gap-5 md:mt-10 md:grid-cols-2">
         {instructors.map((instructor, i) => (
           <InstructorCard key={instructor.name} instructor={instructor} index={i} />
         ))}

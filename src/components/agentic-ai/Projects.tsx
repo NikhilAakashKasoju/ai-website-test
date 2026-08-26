@@ -5,7 +5,7 @@ import { projects, additionalProjects } from "@/lib/data";
 
 export default function Projects() {
   return (
-    <section id="projects" className="mx-auto max-w-6xl px-6 py-24">
+    <section id="projects" className="mx-auto max-w-6xl px-6 py-14 sm:py-20 lg:py-24">
       <p className="font-mono text-xs uppercase tracking-widest text-cyan">/ Build, don&apos;t just watch</p>
       <h2 className="mt-3 max-w-2xl text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         Three core projects, built end to end
@@ -16,7 +16,7 @@ export default function Projects() {
         executes on its own.
       </p>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:gap-5 md:mt-10 md:grid-cols-3">
         {projects.map((project, i) => (
           <motion.div
             key={project.number}

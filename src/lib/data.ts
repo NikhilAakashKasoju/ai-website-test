@@ -232,7 +232,7 @@ export const skills: string[] = [
 ];
 
 export const programStats = [
-  { value: 8, suffix: "", label: "Weeks" },
+  { value: 12, suffix: "", label: "Weeks" },
   { value: 22, suffix: "+", label: "Live sessions" },
   { value: 3, suffix: "", label: "Core projects" },
   { value: 10, suffix: "", label: "Skills covered" },
@@ -268,10 +268,10 @@ export const instructors: Instructor[] = [
   {
     name: "Atchyut Kumar",
     initials: "AK",
-    role: "Data Engineering & GATE CS/IT Faculty",
+    role: "Data Lead & GATE CS/IT Faculty & Udemy Course Content Creator",
     bio: "Atchyut holds an M.Tech from NIT Calicut and placed in the 99.97 percentile of GATE CS/IT (AIR 440). Across 15+ years in teaching, research and industry he has mentored students into roles at Amazon, Google, Oracle, Samsung and Adobe — and brings 9+ years of hands-on data engineering to every module.",
     photo: "/instructors/Atchyut instructor.png",
-    specialties: ["Data Engineering", "GATE CS/IT", "Algorithms"],
+    specialties: ["Data Lead", "GATE CS/IT", "Algorithms"],
     stats: [
       { value: "15+", label: "Years experience" },
       { value: "110k+", label: "Students mentored" },

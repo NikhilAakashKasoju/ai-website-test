@@ -1,3 +1,4 @@
 {
-  "/agentic-ai/page": "app/agentic-ai/page.js"
+  "/agentic-ai/page": "app/agentic-ai/page.js",
+  "/page": "app/page.js"
 }

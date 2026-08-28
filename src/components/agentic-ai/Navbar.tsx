@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { REGISTER_URL } from "@/lib/data";
+import { asset } from "@/lib/site";
 
 const links = [
   { href: "#curriculum", label: "Curriculum" },
@@ -90,7 +91,7 @@ export default function Navbar() {
           className="flex items-center gap-2.5 font-display text-sm font-semibold tracking-tight text-ink"
         >
           <Image
-            src="/logos/efn platform logo new.png"
+            src={asset("/logos/efn platform logo new.png")}
             alt="edufulness"
             width={1536}
             height={1024}

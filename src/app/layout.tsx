@@ -27,21 +27,22 @@ const TITLE = "Building Agentic AI Applications — Live Cohort";
 const DESCRIPTION =
   "A 12-week live cohort taking you from Python and AI fundamentals to production-ready agentic systems with LangChain, LangGraph, CrewAI, and n8n.";
 
-// Set NEXT_PUBLIC_SITE_URL in Render once you have a final domain. Without a
+// The public origin, used for absolute URLs in social previews. Without a
 // metadataBase, Next cannot build absolute URLs for social previews and logs
 // a warning on every build.
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://agentic-ai-cohort.onrender.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://edufulness.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
-  // Tab logo — points straight at the original file in /public, unmodified.
-  // The %20 are the spaces in the filename, which a URL has to escape.
+  // Tab logo — the original file in /public, unmodified. The %20 are the
+  // spaces in the filename, which a URL has to escape. basePath is NOT applied
+  // to metadata icons by Next, so the /agentic-ai prefix is written out here.
   icons: {
-    icon: "/logos/efn%20favicon%20logo%20new.png",
-    apple: "/logos/efn%20favicon%20logo%20new.png",
+    icon: "/agentic-ai/logos/efn%20favicon%20logo%20new.png",
+    apple: "/agentic-ai/logos/efn%20favicon%20logo%20new.png",
   },
   openGraph: {
     type: "website",

@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { instructors, type Instructor } from "@/lib/data";
+import { asset } from "@/lib/site";
 
 function Avatar({ instructor }: { instructor: Instructor }) {
   if (instructor.photo) {
     return (
       <Image
-        src={instructor.photo}
+        src={asset(instructor.photo)}
         alt={instructor.name}
         width={128}
         height={128}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowUpRight, ArrowUp } from "lucide-react";
+import { asset } from "@/lib/site";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared edufulness footer. Everything site-specific sits in the constants
@@ -84,7 +85,7 @@ export default function Footer() {
           <div className="lg:pr-8">
             <div className="flex items-center gap-2">
               <Image
-                src="/logos/efn platform logo new.png"
+                src={asset("/logos/efn platform logo new.png")}
                 alt="edufulness"
                 width={1536}
                 height={1024}

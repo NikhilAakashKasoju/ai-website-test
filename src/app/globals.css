@@ -12,7 +12,7 @@ html {
 
 /* Anchor links land below the sticky header instead of tucking under it. */
 section[id] {
-  scroll-margin-top: 7.5rem;
+  scroll-margin-top: 5.5rem;
 }
 
 body {

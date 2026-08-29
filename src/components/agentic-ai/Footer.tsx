@@ -85,12 +85,12 @@ export default function Footer() {
           <div className="lg:pr-8">
             <div className="flex items-center gap-2">
               <Image
-                src={asset("/logos/efn platform logo new.png")}
+                src={asset("/logos/efnlogo.png")}
                 alt="edufulness"
-                width={1536}
-                height={1024}
-                sizes="140px"
-                className="h-12 w-auto shrink-0"
+                width={560}
+                height={174}
+                sizes="130px"
+                className="h-10 w-auto shrink-0"
               />
               <span className="whitespace-nowrap text-sm text-ink-secondary">
                 / {currentCourse?.label ?? "Agentic AI"}

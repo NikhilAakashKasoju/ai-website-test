@@ -7,6 +7,31 @@ import { Menu, X } from "lucide-react";
 import { REGISTER_URL } from "@/lib/data";
 import { asset } from "@/lib/site";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// This header is matched to edufulness.com/dsa. Measured off the live DSA
+// page and mirrored here:
+//
+//   bar height   h-[68px] lg:h-[76px]
+//   logo         h-[28px] w-auto sm:h-[34px]   (560x174 wordmark)
+//   course label font-body text-[12.5px] font-medium, #8A8A96
+//   nav links    text-[14px] font-medium, #8A8A96 -> #F4F4F6 on hover
+//   CTA          text-[14px] font-semibold, px-5 py-3 sm:py-2.5, rounded-full
+//   tap targets  min-h-[44px] on every control
+//
+// Two things stay deliberately different, with reasons:
+//   - container width. DSA is max-w-[1300px]; this page's sections are
+//     max-w-6xl, and widening only the header would leave the logo hanging
+//     outside the content column.
+//   - CTA text color. DSA puts white on a dark blue gradient; this gradient
+//     is light violet -> cyan, where white fails contrast, so the dark
+//     `void` ink stays.
+// ─────────────────────────────────────────────────────────────────────────────
+const LOGO = {
+  src: "/logos/efnlogo.png",
+  width: 560,
+  height: 174,
+};
+
 const links = [
   { href: "#curriculum", label: "Curriculum" },
   { href: "#pricing", label: "Pricing" },
@@ -66,8 +91,14 @@ export default function Navbar() {
     // Wait out the menu collapse so the target's final offset is correct.
     window.setTimeout(
       () => {
+        // Measure the bar rather than hard-coding it: it is 68px tall below
+        // lg and 76px from lg up, and a stale constant leaves headings
+        // tucked under the header on one of the two.
+        const bar =
+          document.querySelector("header")?.getBoundingClientRect().height ?? 69;
+
         window.scrollTo({
-          top: target.getBoundingClientRect().top + window.scrollY - 112,
+          top: target.getBoundingClientRect().top + window.scrollY - (bar + 16),
           behavior: reduced ? "auto" : "smooth",
         });
         history.replaceState(null, "", href);
@@ -85,34 +116,36 @@ export default function Navbar() {
       }`}
     >
       {/* Wordmark left, links + CTA grouped together on the right. */}
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6 sm:h-20 md:h-24">
+      <div className="mx-auto flex h-[68px] max-w-6xl items-center gap-4 px-6 lg:h-[76px]">
+        {/* Brand lockup goes to the main edufulness site, not back up the page.
+            "Back to top" lives in the footer for that. */}
         <a
-          href="#main"
-          className="flex items-center gap-2.5 font-display text-sm font-semibold tracking-tight text-ink"
+          href="https://edufulness.com"
+          aria-label="edufulness home"
+          className="group flex min-h-[44px] shrink-0 items-center gap-2.5 transition-opacity hover:opacity-90"
         >
           <Image
-            src={asset("/logos/efn platform logo new.png")}
+            src={asset(LOGO.src)}
             alt="edufulness"
-            width={1536}
-            height={1024}
+            width={LOGO.width}
+            height={LOGO.height}
             priority
-            // Without this Next serves a 3840px variant of a logo that renders
-            // at ~110px. Costs real bandwidth on a free instance.
-            sizes="(min-width: 768px) 110px, 70px"
-            className="h-11 w-auto shrink-0 sm:h-14 md:h-[72px]"
+            sizes="(min-width: 640px) 110px, 90px"
+            className="h-[28px] w-auto shrink-0 sm:h-[34px]"
           />
-          <span className="hidden whitespace-nowrap lg:inline">
-            Building Agentic AI Applications
+          {/* Course label, styled exactly like the DSA one: body font,
+              12.5px, medium, muted grey, with the leading slash. */}
+          <span className="hidden whitespace-nowrap font-body text-[12.5px] font-medium text-nav-muted lg:inline">
+            / Building Agentic AI Applications
           </span>
-          {/* Below sm the logo alone carries the brand — the CTA and menu
-              button need the width more than a second wordmark does. */}
-          <span className="hidden whitespace-nowrap sm:inline lg:hidden">
-            Agentic AI
+          {/* Below lg the long title would push the CTA off-screen. */}
+          <span className="hidden whitespace-nowrap font-body text-[12.5px] font-medium text-nav-muted sm:inline lg:hidden">
+            / Agentic AI
           </span>
         </a>
 
-        <div className="flex items-center gap-2 md:gap-3">
-          <nav className="mr-1 hidden items-center gap-1 md:flex">
+        <div className="ml-auto flex shrink-0 items-center gap-2.5">
+          <nav className="hidden items-center gap-1 md:flex">
             {links.map((link) => {
               const isActive = active === link.href;
               return (
@@ -121,8 +154,8 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative rounded-full px-4 py-2 text-sm transition-colors ${
-                    isActive ? "text-ink" : "text-ink-secondary hover:text-ink"
+                  className={`relative inline-flex min-h-[44px] items-center rounded-full px-3 text-[14px] font-medium transition-colors ${
+                    isActive ? "text-nav-ink" : "text-nav-muted hover:text-nav-ink"
                   }`}
                 >
                   {isActive && (
@@ -142,7 +175,7 @@ export default function Navbar() {
             href={REGISTER_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="whitespace-nowrap rounded-full bg-agent-gradient px-4 py-2 text-sm font-medium text-void shadow-glow transition-transform hover:scale-[1.03]"
+            className="inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-full bg-agent-gradient px-5 py-3 text-[14px] font-semibold text-void shadow-glow transition-transform hover:scale-[1.03] sm:py-2.5"
           >
             Reserve a seat
           </a>
@@ -153,7 +186,7 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle text-ink transition-colors hover:bg-surface md:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-subtle bg-surface/60 text-nav-ink transition-colors hover:border-border-strong md:hidden"
           >
             {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -177,10 +210,10 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   aria-current={active === link.href ? "true" : undefined}
-                  className={`rounded-lg px-3 py-3 text-sm transition-colors ${
+                  className={`flex min-h-[44px] items-center rounded-lg px-3 text-[14px] font-medium transition-colors ${
                     active === link.href
-                      ? "bg-surface text-ink"
-                      : "text-ink-secondary hover:bg-surface hover:text-ink"
+                      ? "bg-surface text-nav-ink"
+                      : "text-nav-muted hover:bg-surface hover:text-nav-ink"
                   }`}
                 >
                   {link.label}

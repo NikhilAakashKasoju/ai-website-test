@@ -37,12 +37,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
-  // Tab logo — the original file in /public, unmodified. The %20 are the
-  // spaces in the filename, which a URL has to escape. basePath is NOT applied
-  // to metadata icons by Next, so the /agentic-ai prefix is written out here.
+  // Purpose-made square icons in /public/logos. basePath is NOT applied to
+  // metadata icons by Next, so the /agentic-ai prefix is written out here.
   icons: {
-    icon: "/agentic-ai/logos/efn%20favicon%20logo%20new.png",
-    apple: "/agentic-ai/logos/efn%20favicon%20logo%20new.png",
+    icon: [{ url: "/agentic-ai/logos/icon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/agentic-ai/logos/apple-icon.png", sizes: "180x180" }],
   },
   openGraph: {
     type: "website",

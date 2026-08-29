@@ -20,6 +20,14 @@ const config: Config = {
           secondary: "#A3ACC2",
           muted: "#6B7280",
         },
+        // Header text colors lifted verbatim from edufulness.com/dsa
+        // (--c-text: 244 244 246, --c-muted: 138 138 150) so the two
+        // navbars read identically. Used only by Navbar.tsx — the rest of
+        // the page keeps its own `ink` scale.
+        nav: {
+          ink: "#F4F4F6",
+          muted: "#8A8A96",
+        },
         violet: {
           DEFAULT: "#7C6CF6",
           soft: "#8F82FF",

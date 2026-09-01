@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { REGISTER_URL } from "@/lib/data";
 import { asset } from "@/lib/site";
 
@@ -38,6 +38,177 @@ const links = [
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
 ];
+
+// The other edufulness cohorts, shown in the "Courses" dropdown. This page's
+// own course is deliberately absent — the footer follows the same rule and
+// never links a page to itself. The dot colours echo each course's flagship
+// section on edufulness.com, so the two surfaces agree.
+//
+// These are sibling pages on the same domain, so they open in the SAME tab:
+// this is site navigation, not an outbound reference, and target="_blank"
+// on your own site just litters people's tab bars.
+const COURSES = [
+  {
+    label: "Azure Data Engineering",
+    href: "https://edufulness.com/data-engineering",
+    dot: "#2F74F0",
+  },
+  {
+    label: "Data Structures and Algorithms",
+    href: "https://edufulness.com/dsa",
+    dot: "#F0B429",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Courses dropdown. Opens on click (touch + keyboard) and on mouse hover,
+// closes on Escape, outside pointerdown, or focus leaving the group.
+// ─────────────────────────────────────────────────────────────────────────────
+function CoursesMenu() {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number>();
+  const reduced = useReducedMotion();
+
+  // "Pinned" = opened deliberately by click or keyboard, rather than by the
+  // mouse passing over. Without this, hovering opens the menu and the click
+  // that follows reads as a toggle and shuts it again — so a user who hovers
+  // and then clicks to open it watches it snap closed. Pinned menus ignore
+  // mouse-leave and only close on click, Escape, outside press or blur.
+  const pinned = useRef(false);
+
+  const shut = () => {
+    pinned.current = false;
+    setOpen(false);
+  };
+
+  // Hover-close is delayed so the diagonal trip from the button down to the
+  // panel doesn't dismiss the menu mid-travel.
+  const openNow = () => {
+    window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const closeSoon = () => {
+    if (pinned.current) return;
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(false), 160);
+  };
+
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onDown = (e: PointerEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) shut();
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      shut();
+      btnRef.current?.focus(); // Escape must land focus somewhere sensible.
+    };
+
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative"
+      onPointerEnter={(e) => e.pointerType === "mouse" && openNow()}
+      onPointerLeave={(e) => e.pointerType === "mouse" && closeSoon()}
+      // Tabbing past the last item closes the menu behind you.
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) shut();
+      }}
+    >
+      <button
+        ref={btnRef}
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="menu"
+        aria-controls="courses-menu"
+        onClick={() => {
+          // Only a click on an already-pinned menu closes it; a click on a
+          // hover-opened one pins it instead of dismissing it.
+          if (open && pinned.current) shut();
+          else {
+            pinned.current = true;
+            openNow();
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            pinned.current = true;
+            setOpen(true);
+            // Wait for the panel to mount before reaching into it.
+            requestAnimationFrame(() =>
+              panelRef.current?.querySelector("a")?.focus()
+            );
+          }
+        }}
+        className={`inline-flex min-h-[44px] items-center gap-1 rounded-full px-3 text-[14px] font-medium transition-colors duration-200 ${
+          open ? "text-nav-ink" : "text-nav-muted hover:text-nav-ink"
+        }`}
+      >
+        Courses
+        <ChevronDown
+          className={`h-3.5 w-3.5 transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+          aria-hidden="true"
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            ref={panelRef}
+            id="courses-menu"
+            role="menu"
+            aria-label="Other courses"
+            initial={{ opacity: 0, y: reduced ? 0 : -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: reduced ? 0 : -6 }}
+            transition={{ duration: 0.16, ease: "easeOut" }}
+            // w-max, not a fixed width: the panel sizes to its longest
+            // label, so "Data Structures and Algorithms" stays on one line
+            // whatever metrics the font lands with. min/max keep it sane.
+            className="absolute right-0 top-full z-50 w-max min-w-[15rem] max-w-[22rem] overflow-hidden rounded-xl border border-border-subtle bg-surface p-1.5 shadow-xl shadow-black/40"
+          >
+            <p className="px-3 pb-1.5 pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+              Also from edufulness
+            </p>
+            {COURSES.map((course) => (
+              <a
+                key={course.href}
+                href={course.href}
+                role="menuitem"
+                onClick={shut}
+                className="flex min-h-[40px] items-center gap-2.5 rounded-lg px-3 py-2 text-[14px] font-medium leading-snug text-nav-muted transition-colors hover:bg-surface-hover hover:text-nav-ink focus-visible:bg-surface-hover focus-visible:text-nav-ink"
+              >
+                <span
+                  className="h-1.5 w-1.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: course.dot }}
+                  aria-hidden="true"
+                />
+                {course.label}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -145,7 +316,10 @@ export default function Navbar() {
         </a>
 
         <div className="ml-auto flex shrink-0 items-center gap-2.5">
-          <nav className="hidden items-center gap-1 md:flex">
+          {/* lg, not md: with "Courses" added, five items + the long brand
+              title + the CTA overflow a 768px bar. Below lg it all lives in
+              the drawer instead. */}
+          <nav className="hidden items-center gap-1 lg:flex">
             {links.map((link) => {
               const isActive = active === link.href;
               return (
@@ -154,21 +328,20 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative inline-flex min-h-[44px] items-center rounded-full px-3 text-[14px] font-medium transition-colors ${
+                  // Colour is the only thing that moves — dim by default,
+                  // white on hover and while you are inside that section.
+                  // No pill, no weight change: the DSA header keeps
+                  // `font-medium` fixed and swaps text-muted -> text-text.
+                  className={`inline-flex min-h-[44px] items-center rounded-full px-3 text-[14px] font-medium transition-colors duration-200 ${
                     isActive ? "text-nav-ink" : "text-nav-muted hover:text-nav-ink"
                   }`}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-surface"
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    />
-                  )}
                   {link.label}
                 </a>
               );
             })}
+
+            <CoursesMenu />
           </nav>
 
           <a
@@ -186,7 +359,7 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-subtle bg-surface/60 text-nav-ink transition-colors hover:border-border-strong md:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border-subtle bg-surface/60 text-nav-ink transition-colors hover:border-border-strong lg:hidden"
           >
             {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -201,7 +374,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-border-subtle md:hidden"
+            className="overflow-hidden border-t border-border-subtle lg:hidden"
           >
             <nav className="mx-auto flex max-w-6xl flex-col px-6 py-3">
               {links.map((link) => (
@@ -210,13 +383,33 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   aria-current={active === link.href ? "true" : undefined}
-                  className={`flex min-h-[44px] items-center rounded-lg px-3 text-[14px] font-medium transition-colors ${
+                  className={`flex min-h-[44px] items-center rounded-lg px-3 text-[14px] font-medium transition-colors duration-200 ${
                     active === link.href
-                      ? "bg-surface text-nav-ink"
-                      : "text-nav-muted hover:bg-surface hover:text-nav-ink"
+                      ? "text-nav-ink"
+                      : "text-nav-muted hover:text-nav-ink"
                   }`}
                 >
                   {link.label}
+                </a>
+              ))}
+
+              {/* No nested dropdown on touch — two extra rows behind a
+                  disclosure would be more tapping for less. */}
+              <p className="mt-2 border-t border-border-subtle px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+                Also from edufulness
+              </p>
+              {COURSES.map((course) => (
+                <a
+                  key={course.href}
+                  href={course.href}
+                  className="flex min-h-[44px] items-center gap-2.5 rounded-lg px-3 text-[14px] font-medium text-nav-muted transition-colors duration-200 hover:text-nav-ink"
+                >
+                  <span
+                    className="h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: course.dot }}
+                    aria-hidden="true"
+                  />
+                  {course.label}
                 </a>
               ))}
             </nav>

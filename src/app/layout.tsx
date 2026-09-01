@@ -37,12 +37,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
-  // Purpose-made square icons in /public/logos. basePath is NOT applied to
-  // metadata icons by Next, so the /agentic-ai prefix is written out here.
-  icons: {
-    icon: [{ url: "/agentic-ai/logos/icon.png", type: "image/png", sizes: "512x512" }],
-    apple: [{ url: "/agentic-ai/logos/apple-icon.png", sizes: "180x180" }],
-  },
+  // No `icons` block here on purpose. src/app/icon.png (512x512) and
+  // src/app/apple-icon.png (180x180) are picked up by Next's file
+  // convention, which emits the <link> tags itself AND applies basePath
+  // automatically — unlike a hand-written metadata URL, which had to
+  // carry a literal "/agentic-ai" prefix that would silently rot if the
+  // basePath ever changed.
   openGraph: {
     type: "website",
     siteName: "edufulness",
